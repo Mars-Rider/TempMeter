@@ -203,9 +203,10 @@ setInterval(function () {
 
 }, 200);
 
-var c = null;
-var f = null;
-var h = null;
+//Load these as the data saved in local storage
+var c = localStorage.getItem("c");
+var f = localStorage.getItem("f");
+var h = localStorage.getItem("h");
 
 function getDweets() {
     let req = new XMLHttpRequest();
@@ -218,6 +219,11 @@ function getDweets() {
         c = data.celsius;
         f = Math.round(data.fahrenheit);
         h = data.humidity;
+
+            //Set for local storage
+            localStorage.setItem("c", c);
+            localStorage.setItem("f", f);
+            localStorage.setItem("h", h);
       } else {
         console.error("Error fetching data:", req.status);
       }
