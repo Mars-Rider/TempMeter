@@ -203,9 +203,9 @@ setInterval(function () {
 }, 200);
 
 //Load these as the data saved in local storage
-var c = localStorage.getItem("c");
-var f = localStorage.getItem("f");
-var h = localStorage.getItem("h");
+var c = null;//localStorage.getItem("c");
+var f = null;//localStorage.getItem("f");
+var h = null;//localStorage.getItem("h");
 
 var newData = false;
 
@@ -224,9 +224,9 @@ function getDweets() {
         newData = true;
 
         //Set for local storage
-        localStorage.setItem("c", c);
-        localStorage.setItem("f", f);
-        localStorage.setItem("h", h);
+        //localStorage.setItem("c", c);
+        //localStorage.setItem("f", f);
+        //localStorage.setItem("h", h);
       } else {
         console.error("Error fetching data:", req.status);
       }
