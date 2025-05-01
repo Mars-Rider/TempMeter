@@ -208,16 +208,24 @@ var f = null;
 var h = null;
 
 function getDweets() {
-  dweetio.get_latest_dweet_for("humiditytemptest", function (err, dweet) {
-    var dweet = dweet[0]; // Dweet is always an array of 1
+  
+  let req = new XMLHttpRequest();
+  var data;
 
-    // console.log(dweet.thing); // The generated name
-    // console.log(dweet.content); // The content of the dweet
-    // console.log(dweet.created); // The create date of the dweet
-    c = dweet.content.celsius;
-    f = Math.round(dweet.content.fahrenheit);
-    h = dweet.content.humidity;
-  });
+req.onreadystatechange = () => {
+  if (req.readyState == XMLHttpRequest.DONE) {
+    //console.log(req.responseText);
+    data = JSON.parse(req.responseText);
+    console.log(data.record);
+    c = data.record.celsius;
+    f = Math.round(data.record.fahrenheit);
+    h = data.record.humidity;
+  }
+};
+
+req.open("GET", "https://api.jsonbin.io/v3/b/6812c2958a456b796694f441/latest", true);
+req.setRequestHeader("X-Master-Key", "$2a$10$MB3E/LFErDGnZZnn8oi5e.TK0u8WC8jvgelypq9TKuykrsMihB9wK");
+req.send();
 }
 
 setInterval(() => {
