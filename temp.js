@@ -98,19 +98,19 @@ const swiper = new Swiper(".swiper", {
   effect: "coverflow",
   coverflowEffect: {
     rotate: 30,
-    slideShadows: false,
+    slideShadows: false
   },
 
   // If we need pagination
   pagination: {
     el: ".swiper-pagination",
-    clickable: true,
+    clickable: true
   },
 
   // Navigation arrows
   navigation: {
     nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
+    prevEl: ".swiper-button-prev"
   },
 
   // // And if we need scrollbar
@@ -119,13 +119,13 @@ const swiper = new Swiper(".swiper", {
   // },
 
   mousewheel: {
-    invert: true,
+    invert: true
   },
 
   keyboard: {
     enabled: true,
-    onlyInViewport: false,
-  },
+    onlyInViewport: false
+  }
 });
 
 // function changeGrid() {
@@ -200,7 +200,6 @@ setInterval(function () {
 
     console.log(document.body.dataset.activeIndex);
   });
-
 }, 200);
 
 //Load these as the data saved in local storage
@@ -208,8 +207,10 @@ var c = localStorage.getItem("c");
 var f = localStorage.getItem("f");
 var h = localStorage.getItem("h");
 
+var newData = false;
+
 function getDweets() {
-    let req = new XMLHttpRequest();
+  let req = new XMLHttpRequest();
 
   req.onreadystatechange = () => {
     if (req.readyState === XMLHttpRequest.DONE) {
@@ -220,10 +221,12 @@ function getDweets() {
         f = Math.round(data.fahrenheit);
         h = data.humidity;
 
-            //Set for local storage
-            localStorage.setItem("c", c);
-            localStorage.setItem("f", f);
-            localStorage.setItem("h", h);
+        newData = true;
+
+        //Set for local storage
+        localStorage.setItem("c", c);
+        localStorage.setItem("f", f);
+        localStorage.setItem("h", h);
       } else {
         console.error("Error fetching data:", req.status);
       }
@@ -296,9 +299,9 @@ function showInfo() {
   }
 
   humdVal.innerHTML = "" + h + "%";
-      
-  if(count != 0){
-    if (c == null || f == null) {
+
+  if (count != 0) {
+    if (newData == false) {
       warnWrap.style.bottom = "50px";
       warnWrap.style.opacity = "1";
       tempVal.innerHTML = "--°";
@@ -317,7 +320,7 @@ function showInfo() {
       humdVal.innerHTML = "" + h + "%";
     }
   }
-  
+
   count++;
 
   // localStorage.setItem("Font Size");
@@ -431,7 +434,6 @@ setInterval(() => {
       unitUse.parentElement.getBoundingClientRect().left +
       "px"
   );
-
 }, 50);
 
 // cUnit.parentElement.innerHTML = ;
@@ -443,8 +445,8 @@ setInterval(() => {
 var infoPanel = document.getElementById("infopanel");
 var curtian = document.getElementById("curtain");
 
-function toggleInfo(){
-  if (infoPanel.classList.contains("closed")){
+function toggleInfo() {
+  if (infoPanel.classList.contains("closed")) {
     //Panel is closed, open the panel
     infoPanel.classList.remove("closed");
     curtian.classList.remove("closed");
