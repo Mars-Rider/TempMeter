@@ -208,24 +208,29 @@ var f = null;
 var h = null;
 
 function getDweets() {
-  
-  let req = new XMLHttpRequest();
-  var data;
+    let req = new XMLHttpRequest();
 
-req.onreadystatechange = () => {
-  if (req.readyState == XMLHttpRequest.DONE) {
-    //console.log(req.responseText);
-    data = JSON.parse(req.responseText);
-    console.log(data.record);
-    c = data.record.celsius;
-    f = Math.round(data.record.fahrenheit);
-    h = data.record.humidity;
-  }
-};
+  req.onreadystatechange = () => {
+    if (req.readyState === XMLHttpRequest.DONE) {
+      if (req.status === 200) {
+        let data = JSON.parse(req.responseText);
+        console.log(data.record);
+        c = data.celsius;
+        f = Math.round(data.fahrenheit);
+        h = data.humidity;
+      } else {
+        console.error("Error fetching data:", req.status);
+      }
+    }
+  };
 
-req.open("GET", "https://api.jsonbin.io/v3/b/6812c2958a456b796694f441/latest", true);
-req.setRequestHeader("X-Master-Key", "$2a$10$MB3E/LFErDGnZZnn8oi5e.TK0u8WC8jvgelypq9TKuykrsMihB9wK");
-req.send();
+  // Replace "your/data/path" if you want a specific node, or leave as root
+  req.open(
+    "GET",
+    "https://tempmeter-52f5e-default-rtdb.firebaseio.com/.json",
+    true
+  );
+  req.send();
 }
 
 setInterval(() => {
